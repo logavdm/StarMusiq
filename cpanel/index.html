@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html >
+
+
+<link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <script src="js/angular.js"></script>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+
+
+ 
+
+
+<body>
+
+
+
+
+
+<div ng-app="myApp" ng-controller="customersCtrl">
+ 
+
+ <div class="col-md-6 text-center col-md-offset-3">
+
+	<div class="panel panel-primary">
+      <div class="panel-heading">Panel with panel-primary class</div>
+      <div class="panel-body">  
+
+      <form class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-3" for="email">Limit Record</label>
+    <div class="col-sm-9">
+      <input type="number" class="form-control" id="email" placeholder="Enter email" ng-model="limitvalue">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-3" for="pwd">Starting Record</label>
+    <div class="col-sm-9"> 
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+    </div>
+  </div>
+ 
+  <div class="form-group"> 
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-primary" ng-click="getdetails()">Primary</button>
+    </div>
+  </div>
+</form>
+
+     
+
+
+
+      
+
+      </div>
+    </div>	
+
+
+</div>
+
+
+ 
+<div class="col-md-10 col-md-offset-1">
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+        <tr>
+            <th class="">sno</th>
+            <th>Movie ID</th>
+            <th class="">Movie Name</th>
+            <th class="">Artist</th>
+            <th class="">Release Year</th>
+            <th class="">ADD</th>
+            <th class="">DELETE</th>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="x in names" ng-click="addmovie(x)">
+            <td style="text-align:center;" class="">{{x.movie.sno}}</td>
+            <td class="">{{x.movie.movie_id}}</td>
+            <td style="text-align:center;" class="">{{x.movie.movie_name}}</td>
+            <td style="text-align:center;" class="">{{x.movie.artist}}</td>
+            <td style="text-align:center;" class="">{{x.movie.release_year}}</td>
+            
+            <td style="text-align:center;">
+                <button class="btn btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">ADD</button>
+            </td>
+             <td style="text-align:center;">
+                <button class="btn btn-success" data-toggle="modal" data-target="" contenteditable="false">REMOVE</button>
+            </td>
+        </tr>
+     
+    </tbody>
+  
+</table>
+
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Movie Details</h4>
+      </div>
+      <div class="modal-body">
+        
+          <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Movie Details</a></li>
+
+    <li ng-repeat="x in selectedRow.songs"><a data-toggle="tab" href="#{{x.song_id}}" >{{x.song_id}}</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <br><br>
+
+      <div class="row">
+          
+
+       
+        <div class="col-md-12">
+            <img style='float:left; margin-right:10px;max-width: 200px;' src="{{selectedRow.movie.movie_poster_image}}" />
+            <h3>{{selectedRow.movie.movie_name}}</h3>
+        </div>
+    
+</div>
+<br>
+
+
+      
+       <form class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Movie ID</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" value="{{selectedRow.movie.movie_id}}" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Artist</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.movie_name}}">
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Release Year</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.release_year}}">
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Movie Desc</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.movie_description}}">
+      </div>
+    </div>
+    
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Movie Poster Img</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.movie_poster_image}}" >
+      </div>
+    </div>
+
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Movie Tumb Img</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.movie_tumb_image}}">
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">320 KBPS URL</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.url_320}}">
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">160 KBPS URL</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{selectedRow.movie.url_160}}">
+      </div>
+    </div>
+  <div class="form-group">
+      
+      <div class="col-sm-10">
+        <button type="button" class="btn btn-primary text-center" ng-click="">Primary</button>
+      </div>
+    </div>
+
+    
+  </form>
+
+
+    </div>
+
+    <div id="{{x.song_id}}" class="tab-pane fade" ng-repeat="x in selectedRow.songs">
+     <br>
+     <br>
+
+      <form class="form-horizontal">
+
+    <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Song ID</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{x.song_id}}" disabled>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword" class="col-sm-3 control-label">Song Name</label>
+      <div class="col-sm-8">
+        <input class="form-control"  type="text" placeholder="Disabled input here..." value="{{x.song_name}}" >
+      </div>
+    </div>
+
+
+      </form>
+      
+    </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+ 
+</div>
+ 
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+
+    
+	$scope.getdetails=function(){
+   $http.get("php_function/get_movies.php",{params:{limit:1,offset:1}})
+   .then(function (response) {$scope.names = response.data.records;});
+};
+
+$scope.selectedRow;
+
+       $scope.addmovie = function(material){
+            $scope.selectedRow = material;
+       };
+
+
+});
+</script>
+
+
+
+ 
+</body>
+</html>
+

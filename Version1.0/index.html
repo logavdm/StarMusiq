@@ -1,0 +1,166 @@
+
+<html>
+	<head>
+		<title> Get Music URL</title>
+
+		 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+function fill(Value)
+{
+$('#movie_name').val(Value);
+$('#display').hide();
+$( "#get_song_btn" ).trigger( "click" );
+}
+
+$(document).ready(function(){
+$("#movie_name").keyup(function() {
+var regg = $('#movie_name').val();
+if(regg=="")
+{
+$("#display").html("");
+}
+else
+{
+$.ajax({
+type: "POST",
+url: "get_movies_name.php",
+data: "regg="+ regg ,
+success: function(html){
+$("#display").html(html).show();
+}
+});
+}
+});
+
+
+
+
+
+
+
+$("#get_song_btn").click(function(){
+
+var mvename = $('#movie_name').val();
+
+if(mvename=="")
+{
+$("#songs_list").html("");
+}
+else
+{
+$.ajax({
+type: "POST",
+url: "get_songs_list.php",
+data: "movie_name_send="+ mvename ,
+success: function(html){
+$("#songs_list").html(html).show();
+}
+});
+}
+
+
+
+
+
+});
+
+
+
+
+
+
+
+});
+</script>
+
+    
+
+  <style type="text/css">
+
+
+    .suggest-holder ul {
+     
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #ccc;
+        margin-top: -6px;
+        margin-bottom: 10px;
+    }
+        .suggest-holder li {
+            padding: 5px;
+        }
+        .suggest-holder li:hover {
+            cursor: pointer;
+        }
+        .suggest-holder li:hover, li.active {
+            background: rgba(0,120,0, .2);
+        }
+            .suggest-name {
+                font-weight: bold;
+                display: block;
+                height: 15px;
+                padding-left: 10px;
+            }
+            .suggest-description {
+                font-style: italic;
+                font-size: 11px;
+                color: #999;
+                padding-left: 20px;
+                padding-top: 10px;
+            }
+
+            span{
+              padding-left: 10px;
+            }
+  </style>
+
+	</head>
+	<body>
+
+
+
+
+
+<div class="col-md-6 col-md-offset-3" style="margin-top:6%;" ><div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#337ab7;color:#fff;font-weight: 700;font-size:17px;">StarmusiQ Movie Database</div>
+    <div class="panel-body">
+
+
+
+<div class="suggest-holder">
+  <fieldset class="form-group">
+    <label for="formGroupExampleInput">Enter Movie Name :</label>
+    <input type="text" class="form-control" id="movie_name" name="starmusic" autocomplete="on" placeholder="Enter Movie name">
+  </fieldset>
+
+ 
+<div id="display"></div>
+
+
+  
+  </div>
+  
+  <input class="btn btn-primary" type="button" value="Get songs List" id="get_song_btn">
+
+
+    </div>
+  </div>
+
+<div id="songs_list"></div>
+
+
+  </div>
+
+
+
+
+
+
+
+	</body>
+	</html>
+
